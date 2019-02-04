@@ -1128,16 +1128,21 @@
       <DataType>timestamp|0s</DataType>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <index id="278" parent="256" name="users_email_unique">
+    <column id="278" parent="256" name="photo_id">
+      <Position>10</Position>
+      <DataType>int(11)|0s</DataType>
+      <ColumnKind>normal</ColumnKind>
+    </column>
+    <index id="279" parent="256" name="users_email_unique">
       <ColNames>email</ColNames>
       <Unique>1</Unique>
     </index>
-    <key id="279" parent="256" name="PRIMARY">
+    <key id="280" parent="256" name="PRIMARY">
       <NameSurrogate>1</NameSurrogate>
       <ColNames>id</ColNames>
       <Primary>1</Primary>
     </key>
-    <key id="280" parent="256" name="users_email_unique">
+    <key id="281" parent="256" name="users_email_unique">
       <ColNames>email</ColNames>
       <UnderlyingIndexName>users_email_unique</UnderlyingIndexName>
     </key>
