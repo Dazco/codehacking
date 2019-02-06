@@ -52,7 +52,7 @@ class AdminUsersController extends Controller
             $fileName = $file->getClientOriginalName();
 
             $photo = Photo::create(['path'=>$fileName]);
-            $file->move('/images',$fileName);
+            $file->move('images',$fileName);
             $input['photo_id'] = $photo->id;
         }
 
@@ -69,7 +69,6 @@ class AdminUsersController extends Controller
     public function show($id)
     {
         //
-        return view('admin.users.edit');
     }
 
     /**
@@ -81,6 +80,9 @@ class AdminUsersController extends Controller
     public function edit($id)
     {
         //
+        $user = User::findOrFail($id);
+        $roles = Role::lists('name','id')->all();
+        return view('admin.users.edit',compact('user','roles'));
     }
 
     /**
@@ -93,6 +95,28 @@ class AdminUsersController extends Controller
     public function update(Request $request, $id)
     {
         //
+        $this->validate($request,[
+            'name'=>'required',
+            'email'=>'required|email|unique:users,email,'.$id,
+            'password'=>'confirmed',
+            'role_id'=>'required',
+            'is_active'=>'required',
+            'profile'=>'image'
+        ]);
+        $user = User::findOrFail($id);
+        $input = $request->all();
+        if($request->hasFile('profile')&&$request->file('profile')->isValid()){
+            $file = $request->file('profile');
+            $fileName = time().$file->getClientOriginalName();
+            $file->move('images',$fileName);
+            $photo = Photo::create(['path'=>$fileName]);
+            $input['photo_id'] = $photo->id;
+        }
+        if(!$input['password']) {
+            array_forget($input, 'password');
+        }
+        $user->update($input);
+        return redirect('admin/users');
     }
 
     /**

@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class Photo extends Model
 {
     //
-    public $dir = 'images/';
+    public $dir = '/images/';
     protected $fillable =['path'];
 
     public function getPathAttribute($path){

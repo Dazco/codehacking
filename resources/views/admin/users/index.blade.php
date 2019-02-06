@@ -3,10 +3,11 @@
 @section('content')
     <h1>Users</h1>
     <div class="table-responsive">
-        <table class="table table-striped">
+        <table class="table table-striped table-hover">
             <thead>
               <tr>
                   <th>Id</th>
+                  <th>Profile Picture</th>
                   <th>Name</th>
                   <th>Email</th>
                   <th>Role</th>
@@ -18,15 +19,16 @@
             <tbody>
                 @if($users)
                     @foreach($users as $user)
-                      <tr>
-                          <td>{{$user->id}}</td>
-                          <td>{{$user->name}}</td>
-                          <td>{{$user->email}}</td>
-                          <td>{{ucfirst($user->role->name)}}</td>
-                          <td>{{$user->is_active === 1? 'Active':'In-active'}}</td>
-                          <td>{{$user->created_at->diffForHumans()}}</td>
-                          <td>{{$user->updated_at->diffForHumans()}}</td>
-                      </tr>
+                          <tr>
+                              <td>{{$user->id}}</td>
+                              <td><img height="60" src="{{$user->photo?$user->photo->path:'/images/default-profile-image.png'}}" alt="profile picture"></td>
+                              <td><a href="{{route('admin.users.edit',$user->id)}}">{{$user->name}}</a></td>
+                              <td>{{$user->email}}</td>
+                              <td>{{ucfirst($user->role->name)}}</td>
+                              <td>{{$user->is_active === 1? 'Active':'In-active'}}</td>
+                              <td>{{$user->created_at->diffForHumans()}}</td>
+                              <td>{{$user->updated_at->diffForHumans()}}</td>
+                          </tr>
                     @endforeach
                 @endif
             </tbody>
