@@ -22,7 +22,7 @@
             </div>
             <div class="form-group">
                 {!! Form::label('role_id','Role:') !!}
-                {!! Form::select('role_id',$roles + ['create'=>'create new role'],null,['class'=>'form-control']) !!}
+                {!! Form::select('role_id',['choose'=>'Choose Options'] + $roles,null,['class'=>'form-control']) !!}
             </div>
             <div class="form-group">
                 {!! Form::label('is_active','Status') !!}
@@ -37,8 +37,13 @@
                 {!! Form::password('password_confirmation',['class'=>'form-control']) !!}
             </div>
             <div class="form-group">
-                {!! Form::submit('Update User',['class'=>'btn btn-primary']) !!}
+                {!! Form::submit('Update User',['class'=>'btn btn-primary col-sm-5']) !!}
             </div>
+        {!! Form::close() !!}
+        {!! Form::open(['method'=>'DELETE','action'=>['AdminUsersController@destroy',$user->id]]) !!}
+            <div class="form-group">
+                {!! Form::submit('Delete User',['class'=>'btn btn-danger col-sm-5 pull-right']) !!}
+            </div>
+        {!! Form::close() !!}
     </div>
-    {!! Form::close() !!}
 @endsection

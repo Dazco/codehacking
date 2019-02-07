@@ -1,9 +1,10 @@
 @extends('layouts.error')
 
 @section('title')
-    Be right back.
+    404 - Page Not Found.
 @endsection
 
 @section('error')
-    Be right back.
+    OOPS! <br />
+    Page Not Found
 @endsection
